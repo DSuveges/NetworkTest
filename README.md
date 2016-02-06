@@ -1,6 +1,6 @@
 ## NetworkTest
 
-This small project was motivated by the recent problems with our internet access. The problem was definitely with the ISP (BT): at the time when the service was down, BT's free wi-fi network was also unreachable. These outages occurs randomly and the length were greatly varying from less than a minute to half hour. This is a extremely anoying behavior and I have decided to monitor the our internet service for a few days so I can enforce my complaints with measured data.
+This small project was motivated by recent problems with our internet access. The problem was definitely with the ISP (BT): at the time when the service was down, BT's free wi-fi network was also unreachable. These outages occurs randomly and their lengths were varying from less than a minute to half hour. This is a extremely anoying behavior and I have decided to monitor our internet service for a few days so I can enforce my complaints with measured data.
 
 ### Approach
 
