@@ -8,9 +8,11 @@ today=$(date +"%Y.%m.%d")
 
 # Default variables:
 targetURL="google.com"
-rooterIP="192.168.1.254"
 outputFile="Network_test_${today}.tsv"
 sleep_sec=5
+
+# Store router IP address:
+rooterIP=$(route -n | grep ^0 | awk '{print $2}')
 
 # Help message:
 function display_help {
@@ -21,10 +23,9 @@ function display_help {
     echo "This script is written to test internet access by sending ping requests to a defined remote host."
     echo "Also, the script pings the rooter as well, to see if the lack in the internet service is due to rooter error."
     echo ""
-    echo "Usage: ${0} -t google.com -r 192.168.1.254 -s 10 -o OutputFilename"
+    echo "Usage: ${0} -t google.com -s 10 -o OutputFilename"
     echo ""
     echo -e "\t-t: remote host, optional, google.com is the default."
-    echo -e "\t-r: router address, optional, 192.168.1.254 is the default."
     echo -e "\t-s: sleep time in sec between each ping requests, optional, 10s is the default."
     echo ""
     
@@ -33,7 +34,7 @@ function display_help {
 
 # Now these variables can be overriden by command line parameters:
 OPTIND=1
-while getopts ":hg:s:dw:x:o:" optname; do
+while getopts ":ht:s:o:" optname; do
     case "$optname" in
         "t") targetURL=${OPTARG} ;;
         "r") rooterIP=${OPTARG} ;;
