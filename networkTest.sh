@@ -14,6 +14,10 @@ sleep_sec=5
 # Store router IP address:
 rooterIP=$(route -n | grep ^0 | awk '{print $2}')
 
+# Get router type based on the html page or the arp output:
+rooterType=$( curl -s ${rooterIP} | tr ">" "\n" | tr "<" "\n" | grep -i version )
+if [[ -x ${rooterType} ]]; then rooterType=$(arp -a | grep ${rooterIP} | cut -d" " -f1); fi
+
 # Help message:
 function display_help {
     
@@ -27,6 +31,7 @@ function display_help {
     echo ""
     echo -e "\t-t: remote host, optional, google.com is the default."
     echo -e "\t-s: sleep time in sec between each ping requests, optional, 10s is the default."
+    echo -e '\t-o: output file name, optional. Default: Network_test_${today}.tsv'
     echo ""
     
     exit 1;
@@ -50,6 +55,7 @@ done
 # Write header:
 (echo "# Version: ${version}"
 echo "# Rooter IP: ${rooterIP}"
+echo "# Rooter name: ${rooterType}"
 echo "# Target URL: ${targetURL}"
 echo "# Output file name: ${outputFile}"
 echo "# Sleep time: ${sleep_sec}"
