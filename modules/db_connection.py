@@ -41,7 +41,7 @@ class db_connection(object):
         :return: Connection object or None
         """
         try:
-            self.conn = sqlite3.connect(db_file)
+            self.conn = sqlite3.connect(db_file, check_same_thread=False)
         except:
             print("[Error] DB could not be connected ({}). Exing".format(db_file))
             raise

@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import schedule
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 
@@ -11,15 +10,17 @@ from configuration import properites
 
 app = Flask(__name__)
 
-cron = Scheduler(daemon=True)
-# Explicitly kick off the background thread
-cron.start()
+# cron = Scheduler(daemon=True)
+# # Explicitly kick off the background thread
+# cron.start()
+#
+# # Shutdown the scheduler web process is stopped
+# atexit.register(lambda: cron.shutdown())
+#
+#
+# @cron.interval_schedule(seconds=1)
 
-# Shutdown the scheduler web process is stopped
-atexit.register(lambda: cron.shutdown())
 
-
-@cron.interval_schedule(seconds=1)
 def ping_servers(pingObj, IDs, dbh):
     responses = pingObj.ping()
     mapped_responses = list(map(lambda x, y: (x[1], y), IDs, responses))
@@ -32,13 +33,12 @@ def template_test():
     return render_template('index.html')
 
 
-if __name__ == '__main__':
+def main():
 
     # Extract properties from config file:
     servers = properites.Configuration.server_list
     db_file = properites.Configuration.db_file
     ping_time = properites.Configuration.ping_interval
-
 
     # Connect to db:
     connection = db_connection(db_file)
@@ -50,4 +50,16 @@ if __name__ == '__main__':
     # Initialize ping object:
     pingObj = Ping([x[0] for x in servers])
 
+    # Start pinging:
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=ping_servers, trigger="interval", seconds=ping_time, args=[pingObj, IDs, dbh])
+    scheduler.start()
+
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())
+
     app.run(debug=False)
+
+
+if __name__ == '__main__':
+    main()

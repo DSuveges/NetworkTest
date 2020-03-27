@@ -3,7 +3,7 @@ from ping3 import ping
 
 class Ping(object):
     """
-
+    dfd
     """
 
     def __init__(self, servers=None):
@@ -27,5 +27,5 @@ class Ping(object):
         """
         :return: list of return values of the ping.
         """
-        return [1 if ping(x, size=12) else 0     for x in self.servers]
+        return [1 if ping(x, size=12) else 0 for x in self.servers]
 
