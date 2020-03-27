@@ -1,5 +1,7 @@
 ## NetworkTest
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/411eddfe99bb4ddabfc6ec25cd17316c)](https://app.codacy.com/manual/DSuveges/NetworkTest?utm_source=github.com&utm_medium=referral&utm_content=DSuveges/NetworkTest&utm_campaign=Badge_Grade_Dashboard)
+
 This small project was motivated by recent problems with our internet access. The problem was definitely with the ISP (BT): at the time when the service was down, BT's free wi-fi network was also unreachable. These outages occurs randomly and their lengths were varying from less than a minute to half hour. This is a extremely anoying behavior and I have decided to monitor our internet service for a few days so I can enforce my complaints with measured data.
 
 ### Approach
