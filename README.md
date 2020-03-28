@@ -15,4 +15,6 @@ The success of the ping is recorded in a simple SQLite database.
 
 1. Adding tools to analyze stored data + create network availability charts.
 2. Improve the UI to visualize the network availability history.
+    * Provide daily and weekly graph
+    * The graph should also contain the number how many times the service went off and the total duration
 3. Generate custom report based on the gathered data.
